@@ -24,6 +24,7 @@ class UsersController < ApplicationController
   def create
     @user = User.create(login_params)
     if @user.valid?
+      flash[:notice] = "Your new account has successfully been created!"
       @user.save
       session[:user_id] = @user.id
       redirect_to @user

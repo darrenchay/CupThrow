@@ -1,11 +1,20 @@
+<%= content_tag :h1, "Welcome to the Cup Throw Game!" %>
 <% if flash[:notice] %>
-  <%= content_tag :h1, flash[:notice] %>
+  <%= content_tag :h3, flash[:notice] %>
 <% else %>
-  <%= content_tag :h1, "Please Log in" %>
+  <%= content_tag :h3, "Please Log in to continue" %>
 <% end %>
-<%= form_with url: sessions_path do |f| %>
-  <%= f.text_field :email %><br>
-  <%= f.password_field :password %><br>
-  <%= link_to "Sign Up", new_user_path %>
-  <%= f.submit "Sign In!" %>
+<%= form_with url: sessions_path do |form| %>
+  <div class="field">
+    <%= form.label :email, "Email:" %>
+    <%= form.text_field :email, placeholder: "Enter your email here"%>
+  </div>
+  <div class="field">
+    <%= form.label :password, "Password:" %>
+    <%= form.password_field :password, placeholder: "Enter your password here"%>
+  </div>
+  <div class="actions">
+    <%= link_to "Sign Up", new_user_path %>
+    <%= form.submit "Sign In!" %>
+  </div>
 <% end %>
