@@ -63,7 +63,7 @@ class Player
 		raise ArgumentError, "supplied name #{the_name} should be a string, but is a #{the_name.class}" \
 		  unless the_name.is_a? String
 		@name = the_name
-		@bag = Bag.new
+		@bag = Bag.new(Coin.new(0.25), Coin.new(0.25), Coin.new(0.25), Die.new(), Die.new(), Die.new()) # A newly created player has 3 coins and 3 dies to start with
 		@cup = Cup.new
 		@all_results = []
 	end
