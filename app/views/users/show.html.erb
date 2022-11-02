@@ -1,37 +1,39 @@
-<%= content_tag :h1, current_user.welcome %>
-<p id="notice"><%= notice %></p>
+<% content_for :content do %>
+  <%= content_tag :h1, current_user.welcome %>
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+  <p>
+    <strong>Name:</strong>
+    <%= @user.name %>
+  </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+  <p>
+    <strong>Email:</strong>
+    <%= @user.email %>
+  </p>
 
-<p>
-  <strong>Points:</strong>
-  <%= 0 %>
-</p>
+  <p>
+    <strong>Points:</strong>
+    <%= @user.points %>
+  </p>
 
-<p>
-  <strong>Bag Contents: coins</strong>
-  <%# <%= coins %>
-</p>
+  <p>
+    <strong>Bag Contents:</strong>
+    <%= @user.items %>%
+  </p>
 
-<%# <p>
-  <strong>Password digest:</strong>
-  <%= @user.password_digest 
-</p> %>
-<div class="play_game_btn">
-  <%= link_to 'Play Game!', @user %> 
-</div>
+  <%# <p>
+    <strong>Password digest:</strong>
+    <%= @user.password_digest 
+  </p> %>
+  <div class="play_game_btn">
+    <%= link_to 'Play Game!', @user %> 
+  </div>
 
-<div class="user_actions">
-  <%= link_to 'Edit', edit_user_path(@user) %> |
-  <%= link_to 'Delete Account', @user, method: :delete, data: { confirm: 'Are you sure?' } %> |
-  <%= link_to "Sign out", session_path, method:"delete" %>
-</div>
+  <div class="user_actions">
+    <%= link_to 'Edit', edit_user_path(@user) %> |
+    <%= link_to 'Delete Account', @user, method: :delete, data: { confirm: 'Are you sure?' } %> |
+    <%= link_to "Sign out", session_path, method:"delete" %>
+  </div>
+<% end %>
 

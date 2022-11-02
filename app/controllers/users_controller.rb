@@ -22,13 +22,12 @@ class UsersController < ApplicationController
 
   # POST /users or /users.json
   def create
-    @user = User.create(login_params)
+    @user = User.new(login_params)
     if @user.valid?
       flash[:notice] = "Your new account has successfully been created!"
       @user.save
       session[:user_id] = @user.id
       redirect_to @user
-      # TODO: ADD PLAYER STUFF INIT DATA HERE
     else
       flash[:error] = "Error - please try to create an account again."
       redirect_to new_user_path

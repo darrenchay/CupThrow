@@ -16,6 +16,8 @@ ActiveRecord::Schema.define(version: 2022_11_01_045516) do
     t.string "name"
     t.string "email"
     t.string "password_digest"
+    t.integer "points", default: 0
+    t.text "items"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
