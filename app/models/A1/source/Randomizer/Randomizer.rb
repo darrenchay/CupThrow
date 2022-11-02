@@ -34,4 +34,14 @@ class Randomizer
 	def initialize(arg1=nil, arg2=nil)
 		reset
 	end
+
+	def to_s
+		string = "Item: " 
+		if @item == :coin 
+			string += @item.to_s + ", Denomination: " + @denomination.to_s
+		else
+			string += @item.to_s + ", Colour: " + @colour.to_s + ", Sides: " + @sides.to_s
+		end
+		string
+	end
 end	

@@ -21,6 +21,9 @@
             <p>
               <strong>Bag Contents:</strong>
               <%# Make prettier %>
+                  <%# <% @user.list_to_randomizers(@user.items) do |item| %>
+                      <%# <%= item.to_s%> 
+                  <%# <% end %> 
               <%= @user.items %>
             </p>
             <div class="user_actions">

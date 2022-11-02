@@ -16,7 +16,6 @@ class Game
         @player.bag.items
     end
 
-    private
     # Converts all items into the appropriate randomizer
     def list_to_randomizers(items)
         new_items = []
