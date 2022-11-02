@@ -25,8 +25,13 @@
   <strong>Password digest:</strong>
   <%= @user.password_digest 
 </p> %>
+<div class="play_game_btn">
+  <%= link_to 'Play Game!', @user %> 
+</div>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%# <%= link_to 'Back', users_path %> 
-<%= link_to "Sign out", session_path, method:"delete" %>
+<div class="user_actions">
+  <%= link_to 'Edit', edit_user_path(@user) %> |
+  <%= link_to 'Delete Account', @user, method: :delete, data: { confirm: 'Are you sure?' } %> |
+  <%= link_to "Sign out", session_path, method:"delete" %>
+</div>
+
