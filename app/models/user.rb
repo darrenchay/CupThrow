@@ -4,9 +4,10 @@ class User < ApplicationRecord
     has_secure_password
     validates :email, presence: true, uniqueness: true
     validates :password, presence: true
-    validates :points, presence: true 
+    validates :points, presence: true
 
     # Player Data
+    # has_one :player # create a db for players?
     attr_accessor :points
     serialize :items, JSON
 
