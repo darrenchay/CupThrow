@@ -24,6 +24,12 @@ p {
 a:visited {
         color: $white;
 }
+.nav-link {
+        margin-top: 10px;
+        margin-right: 15px;
+        margin-bottom: 10px;
+}
+
 .jumbotron {
         background: #2355b2;
         color: $white;
@@ -46,19 +52,16 @@ a:visited {
 .row,
 .actions {
         margin-top: 15px;
-        .btn {
-                margin: 15px;
-        }
 }
 
 .btn {
-        margin: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-right: 10px;
 }
 .btn-primary {
         color: $white;
         border-color: $white;
-        // margin-bottom: 5px;
-        margin: 5px;
 }
 .btn-sm {
         background-color: $white;

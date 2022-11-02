@@ -20,4 +20,5 @@ class ApplicationController < ActionController::Base
     def game_in_progress
         @game_in_progress
     end
+
 end

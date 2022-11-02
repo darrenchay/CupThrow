@@ -1,0 +1,23 @@
+<div class="body-sec">
+  <%= form_with(model: game) do |form| %>
+    <% if user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(user.errors.count, "error") %> prohibited these items from being selected</h2>
+
+        <ul>
+          <% user.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :name %>
+      <%= form.text_field :name, placeholder: "Enter your name here"%>
+    </div>
+    <div class="actions">
+      <%= form.submit "Submit", class: "btn btn-light" %>
+    </div>
+  <% end %>
+</div>

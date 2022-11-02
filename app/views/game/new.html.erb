@@ -1,2 +1,8 @@
-<h1>Game#new</h1>
-<p>Find me in app/views/game/new.html.erb</p>
+<%= content_for :game_info, @info %>
+<% content_for :game_content do %>
+    <div class="container">
+        <h5>Please Select items from your bag</h5>
+        <% @game.player.bag%>
+    </div>
+<% end %>
+<%= render template: "layouts/application" %>
