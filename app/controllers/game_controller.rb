@@ -1,5 +1,7 @@
 class GameController < ApplicationController
+  skip_before_action :stop_game, only: [:new]
   def new
+    @game_in_progress = true
   end
 
   def start

@@ -22,11 +22,6 @@
               <strong>Bag Contents:</strong>
               <%= @user.items %>
             </p>
-
-            <div class="play_game_btn">
-              <%= link_to 'Play Game!', game_new_path, class: 'btn btn-success'%> 
-            </div>
-
             <div class="user_actions">
               <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-secondary' %>
               <%= link_to 'Delete Account', @user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
