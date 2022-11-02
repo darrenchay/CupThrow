@@ -1,20 +1,31 @@
-<%= content_tag :h1, "Welcome to the Cup Throw Game!" %>
-<% if flash[:notice] %>
-  <%= content_tag :h3, flash[:notice] %>
-<% else %>
-  <%= content_tag :h3, "Please Log in to continue" %>
+<%= content_for :content_title, "Welcome to Cup Throw!" %>
+<% content_for :content do %>
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-6">
+            <% if flash[:notice] %>
+              <%= content_tag :h5, flash[:notice] %>
+            <% else %>
+              <%= content_tag :h5, "Please Log in to continue" %>
+            <% end %>
+          </div>
+          <div class="col-lg-6">
+            <%= form_with url: sessions_path do |form| %>
+              <div class="field">
+                <%= form.label :email, "Email:" %>
+                <%= form.text_field :email, placeholder: "Enter your email here"%>
+              </div>
+              <div class="field">
+                <%= form.label :password, "Password:" %>
+                <%= form.password_field :password, placeholder: "Enter your password here"%>
+              </div>
+              <div class="actions">
+                <%= link_to "Sign Up", new_user_path, class: 'btn btn-secondary' %>
+                <%= form.submit "Sign In!", class: 'btn btn-primary'%>
+              </div>
+            <% end %>
+          </div>
+      </div>
+  </div>
 <% end %>
-<%= form_with url: sessions_path do |form| %>
-  <div class="field">
-    <%= form.label :email, "Email:" %>
-    <%= form.text_field :email, placeholder: "Enter your email here"%>
-  </div>
-  <div class="field">
-    <%= form.label :password, "Password:" %>
-    <%= form.password_field :password, placeholder: "Enter your password here"%>
-  </div>
-  <div class="actions">
-    <%= link_to "Sign Up", new_user_path %>
-    <%= form.submit "Sign In!" %>
-  </div>
-<% end %>
+<%= render template: "layouts/application" %>

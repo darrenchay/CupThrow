@@ -6,16 +6,21 @@
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Cup Throw" %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%# <header>
-      <%= render 'layouts/navigation' 
-    </header> %>
+    <header>
+      <%= render 'layouts/navigation' %>
+    </header>
     <main role="main">
+      <div class="jumbotron">
+          <div class="container">
+            <h1><%= content_for?(:content_title) ? yield(:content_title) : yield %></h1>
+          </div>
+      </div>
+
       <%= content_for?(:content) ? yield(:content) : yield %>
     </main>
   </body>

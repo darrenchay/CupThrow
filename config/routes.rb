@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'game/new'
+  get 'game/start'
+  get 'game/load'
+  get 'game/switch'
+  get 'game/block'
+  get 'game/throw'
   resources :users, only: [:new, :create, :index, :show, :edit, :destroy, :update]
   resources :sessions, only: [:new, :create, :destroy]
   root 'sessions#new'

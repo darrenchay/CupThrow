@@ -1,39 +1,44 @@
+<%= content_for :content_title, current_user.welcome %>
 <% content_for :content do %>
-  <%= content_tag :h1, current_user.welcome %>
-  <p id="notice"><%= notice %></p>
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-6">
+            <p>
+              <strong>Name:</strong>
+              <%= @user.name %>
+            </p>
 
-  <p>
-    <strong>Name:</strong>
-    <%= @user.name %>
-  </p>
+            <p>
+              <strong>Email:</strong>
+              <%= @user.email %>
+            </p>
 
-  <p>
-    <strong>Email:</strong>
-    <%= @user.email %>
-  </p>
+            <p>
+              <strong>Points:</strong>
+              <%= @user.points %>
+            </p>
 
-  <p>
-    <strong>Points:</strong>
-    <%= @user.points %>
-  </p>
+            <p>
+              <strong>Bag Contents:</strong>
+              <%= @user.items %>
+            </p>
 
-  <p>
-    <strong>Bag Contents:</strong>
-    <%= @user.items %>
-  </p>
+            <div class="play_game_btn">
+              <%= link_to 'Play Game!', game_new_path, class: 'btn btn-success'%> 
+            </div>
 
-  <%# <p>
-    <strong>Password digest:</strong>
-    <%= @user.password_digest 
-  </p> %>
-  <div class="play_game_btn">
-    <%= link_to 'Play Game!', @user %> 
+            <div class="user_actions">
+              <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-secondary' %>
+              <%= link_to 'Delete Account', @user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+              <%= link_to "Sign out", session_path, method:"delete", class: 'btn btn-secondary' %>
+            </div>
+          </div>
+          <div class="col-lg-6">
+              <h5 id="notice"><%= flash[:notice] %></h5>
+          </div>
+      </div>
   </div>
-
-  <div class="user_actions">
-    <%= link_to 'Edit', edit_user_path(@user) %> |
-    <%= link_to 'Delete Account', @user, method: :delete, data: { confirm: 'Are you sure?' } %> |
-    <%= link_to "Sign out", session_path, method:"delete" %>
-  </div>
+  
 <% end %>
+<%= render template: "layouts/application" %>
 

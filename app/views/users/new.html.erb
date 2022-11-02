@@ -1,9 +1,13 @@
-<h1>Create a New User</h1>
+<%= content_for :content_title, "Create a New User" %>
+<% content_for :content do %>
+    <div class="container body-sec">
+        <%= render 'form', user: @user %>
 
-<%= render 'form', user: @user %>
-
-<% if (@user.id?) %>
-    <%= link_to 'Back', session_path, method:"delete" %>
-<% else %>
-    <%= link_to 'Back', new_session_path %>
+        <% if (@user.id?) %>
+            <%= link_to 'Back', session_path, method:"delete", class: 'btn btn-secondary' %>
+        <% else %>
+            <%= link_to 'Back', new_session_path, class: 'btn btn-secondary' %>
+        <% end %>
+    </div>
 <% end %>
+<%= render template: "layouts/application" %>

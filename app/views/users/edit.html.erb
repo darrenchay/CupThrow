@@ -1,6 +1,8 @@
-<h1>Editing User</h1>
+<%= content_for :content_title, "Editing User" %>
+<% content_for :content do %>
+<div class="container body-sec">
+    <%= render 'form', user: @user %>
 
-<%= render 'form', user: @user %>
-
-<%= link_to 'Cancel', @user %> 
-<%# <%= link_to 'Back', users_path %>
+    <%= link_to 'Cancel', @user, class: "btn btn-secondary" %> 
+<% end %>
+<%= render template: "layouts/application" %>

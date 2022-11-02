@@ -1,0 +1,104 @@
+@import "~bootstrap/scss/bootstrap";
+@import url("https://fonts.googleapis.com/css?family=Merriweather:400,700");
+
+$white: white;
+$black: black;
+
+.navbar {
+        margin-bottom: 0;
+        background: #484c53;
+}
+body {
+        background: $black;
+        color: $white;
+        font-family: "Merriweather", sans-serif;
+}
+h1,
+h2 {
+        font-weight: bold;
+}
+p {
+        font-size: 16px;
+        color: $white;
+}
+a:visited {
+        color: $white;
+}
+.jumbotron {
+        background: #2355b2;
+        color: $white;
+        text-align: center;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        p {
+                color: $white;
+                font-size: 26px;
+        }
+}
+.link {
+        color: $white;
+}
+.body-sec {
+        margin-top: 25px;
+}
+
+.field,
+.row,
+.actions {
+        margin-top: 15px;
+}
+
+.btn {
+        margin: 10px;
+}
+.btn-primary {
+        color: $white;
+        border-color: $white;
+        // margin-bottom: 5px;
+        margin: 5px;
+}
+.btn-sm {
+        background-color: $white;
+        display: inline-block;
+}
+img,
+video,
+audio {
+        margin-top: 20px;
+        max-width: 80%;
+}
+caption {
+        float: left;
+        clear: both;
+}
+#notice {
+        color: green;
+}
+
+.field_with_errors {
+        padding: 2px;
+        background-color: red;
+        display: table;
+}
+
+#error_explanation {
+        width: 450px;
+        border: 2px solid red;
+        padding: 7px 7px 0;
+        margin-bottom: 20px;
+        background-color: #f0f0f0;
+        color: $black;
+        h2 {
+                text-align: left;
+                font-weight: bold;
+                padding: 5px 5px 5px 15px;
+                font-size: 12px;
+                margin: -7px -7px 0;
+                background-color: #c00;
+                color: #fff;
+        }
+        ul li {
+                font-size: 12px;
+                list-style: square;
+        }
+}
