@@ -34,9 +34,10 @@ class Die < Randomizer
 	end
 
 	def initialize(side_count = 6, colour = :white)
+		@item = :die
 		raise ArgumentError, "supplied side count #{side_count} is not an integer greater than 1" \
-		  unless valid_sides(side_count)
-		@sides = side_count
+		unless valid_sides(side_count)
+			@sides = side_count
 
 		raise ArgumentError, "supplied colour #{colour} is not one of { :white, :red, :green, :blue, :yellow, :black }" \
 		  unless valid_colour(colour)

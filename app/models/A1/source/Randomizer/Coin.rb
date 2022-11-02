@@ -32,6 +32,7 @@ class Coin < Randomizer
 	end
 
 	def initialize(denom = 1, arg2 = nil)
+		@item = :coin
 		raise ArgumentError, "supplied denomination #{denom} is not one of { 0.1, 0.25, 0.05, 1, 2 }" \
 		  unless valid_denomination(denom)
 		@denomination = denom

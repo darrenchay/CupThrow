@@ -61,7 +61,13 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      @user = User.find_by_id(session[:user_id])
+      # logger.info @user.id
+      # logger.info session[:user_id]
+      # if !@user || (@user && @user.id != session[:user_id]) #always get user in session
+      #   logger.info "mismatch ids"
+      #   @user = User.find(session[:user_id])
+      # end
     end
 
     def login_params

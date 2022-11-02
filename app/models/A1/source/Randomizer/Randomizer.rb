@@ -1,5 +1,5 @@
 class Randomizer
-
+	attr_reader :type
 	# abstract def item end
 	def reset
 		@result = nil
