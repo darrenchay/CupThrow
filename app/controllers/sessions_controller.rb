@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :require_login, only: [:new, :create]
   def new
-    
   end
 
   # Creates a new session with the user that just logged in
@@ -17,7 +16,7 @@ class SessionsController < ApplicationController
     elsif !@user
       flash[:notice] = "User does not exist, either login with an existing user or create a new account"
       redirect_to new_session_path
-    else 
+    else
       flash[:notice] = "Unexpected error occurred, please try again"
       redirect_to new_session_path
     end
