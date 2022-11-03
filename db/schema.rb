@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 2022_11_03_041444) do
   create_table "containers", force: :cascade do |t|
     t.string "type"
     t.integer "user_id", null: false
-    t.text "items"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_containers_on_user_id"
@@ -36,8 +35,10 @@ ActiveRecord::Schema.define(version: 2022_11_03_041444) do
     t.string "colour"
     t.integer "sides"
     t.float "denomination"
+    t.integer "container_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["container_id"], name: "index_items_on_container_id"
   end
 
   create_table "users", force: :cascade do |t|

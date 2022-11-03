@@ -24,7 +24,7 @@
                   <%# <% @user.list_to_randomizers(@user.items) do |item| %>
                       <%# <%= item.to_s%> 
                   <%# <% end %> 
-              <%= @user.items %>
+              <%= Bag.find(@user.bag).items %>
             </p>
             <div class="user_actions">
               <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-secondary' %>

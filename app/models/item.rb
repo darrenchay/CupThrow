@@ -1,4 +1,5 @@
 class Item < ApplicationRecord
+	belongs_to :container
 	# abstract def item end
 	def reset
 		@result = nil
@@ -35,13 +36,13 @@ class Item < ApplicationRecord
 	# 	reset
 	# end
 
-	def to_s
-		string = "Item: " 
-		if @item == :coin 
-			string += @item.to_s + ", Denomination: " + @denomination.to_s
-		else
-			string += @item.to_s + ", Colour: " + @colour.to_s + ", Sides: " + @sides.to_s
-		end
-		string
-	end
+	# def to_s
+	# 	string = "Item: " 
+	# 	if @type == :coin 
+	# 		string += @type.to_s + ", Denomination: " + @denomination.to_s
+	# 	else
+	# 		string += @type.to_s + ", Colour: " + @colour.to_s + ", Sides: " + @sides.to_s
+	# 	end
+	# 	string
+	# end
 end	

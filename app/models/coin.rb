@@ -1,9 +1,5 @@
 class Coin < Item
-    validates :denomination, presence: true
-
-	# def denomination			# returns the denomination of the coin (does not set it)
-	# 	@denomination
-	# end
+    validates :denomination, presence: true, inclusion: {in: [1, 2, 0.05, 0.25, 0.1]}
 
 	def descriptor
 		denomination
@@ -35,6 +31,11 @@ class Coin < Item
 	# 	reset
 	# 	return self
 	# end
+
+	def to_s
+		# logger.info self
+		"Coin with denomination: #{@denomination}"
+	end
 
 	private
 

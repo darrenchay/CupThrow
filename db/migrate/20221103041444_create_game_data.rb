@@ -5,14 +5,13 @@ class CreateGameData < ActiveRecord::Migration[6.1]
       t.string :colour
       t.integer :sides
       t.float :denomination
-
+      t.belongs_to :container, index: true
       t.timestamps      
     end
 
     create_table :containers do |t|
-      t.string  :type
+      t.string :type
       t.references :user, null: false, foreign_key: true
-      t.text :items, array: true
 
       t.timestamps      
     end

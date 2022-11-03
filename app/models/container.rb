@@ -1,6 +1,6 @@
 class Container < ApplicationRecord
 	has_one :user, class_name: 'User', foreign_key: 'user_id'
-    serialize :items, JSON
+    has_many :items
 
 	def count
 		@items.length
@@ -8,11 +8,16 @@ class Container < ApplicationRecord
 
 	def store(r)			
 		raise ArgumentError, "argument #{r} is not an item" unless r.is_a? Item
-		@items << r
+		self.items << r
+		logger.info "Items ====="
+		logger.info @items
+		logger.info "Randomizer ====="
+		logger.info r
 		self
 	end
 
 	def store_all(randomizers)
+		logger.info "iterating randomizers======"
 		logger.info randomizers
 		randomizers.each do |item|
 			self.store item
@@ -92,11 +97,15 @@ class Container < ApplicationRecord
 		sd.dup_items
 	end
 
-	def initialize(it = [])
-		@items = []
-		logger.info "HERE===="
-		logger.info @items
+	after_initialize do |b|
+		# Adding a placeholder so bag is not null
+		b.items = [0] if b.items == nil
 	end
+	# def initialize(it = [])
+	# 	@items = []
+	# 	logger.info "HERE===="
+	# 	logger.info @items
+	# end
 	private
 
 	def reinitialize
