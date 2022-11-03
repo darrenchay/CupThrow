@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
   skip_before_action :stop_game
   attr_reader :info
+  attr_accessor :selected
 
   def new
     @game = Game.new
@@ -13,6 +14,7 @@ class GamesController < ApplicationController
     server_cup = Cup.create(user_id: current_user.id)
   
     @game = Game.create(user_id: current_user.id, bag_id: bag.id, player_cup_id: player_cup.id, server_cup_id: server_cup.id)
+    logger.info "CREATE PAGE"
   end
   
   # def create
