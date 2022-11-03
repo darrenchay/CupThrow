@@ -7,7 +7,7 @@ class Container < ApplicationRecord
 		self.items.each do |item|
 			total += item.max
 		end
-		tot
+		total
 	end
 
 	def count

@@ -28,29 +28,28 @@ class GamesController < ApplicationController
 
     # Check if server will switch
     logger.info cup_server.get_max_points.to_s + "<- SERVER TESTING PLAYER ->" + cup_player.get_max_points.to_s
-    if cup_server.get_max_points > cup_player.get_max_points
-      redirect_to action: 'roll'
-    else 
-      redirect_to action: 'switch'
+    player_max = cup_player.get_max_points
+    server_max = cup_server.get_max_points
+    # If server has less items than player, and random number is greater than ratio, then proceed to try and switch
+    if (server_max < player_max) && (rand() > (server_max / player_max))
+      redirect_to action: 'switch', id: session[:game_id]
+    else
+      redirect_to roll_path(curr_game)
     end
-    # redirect_to action: 'switch', id: session[:game_id]
   end
   
+  # Server is attempting to switch page
   def switch
-    curr_game = session[:game_id]
-    # player_max = Cup.find(curr_game.player_cup_id).get_max_points
-    # server_max = Cup.find(curr_game.server_cup_id).get_max_points
-    # if server_max > player_max 
-    #   redirect_to action: 'roll'
-    # else 
-    #   redirect_to action: 'block'
-    # end
-  end
-
-  def block
+    @game = Game.find(session[:game_id])
+    @info = "The server has less items than you, and its trying to switch cups.\
+             Select an item from the server's cup and roll it.\
+             The server will also pick the largest item from your cup and do the same.\
+             If you get a higher value than the server, you will be able to block the switch "
   end
 
   def roll
+    @game = Game.find(session[:game_id])
+    @info = "Throw your cup and see who has the highest score!"
   end
 
   def results
