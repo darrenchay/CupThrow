@@ -2,7 +2,22 @@
 <% content_for :game_content do %>
     <div class="container">
         <h5>Please Select items from your bag</h5>
-        <%= render partial: 'item_select', locals: {path: games_path, type: 'checkbox'} %>
+            <%= form_with(url: games_path) do |form| %>
+                <% Bag.find(@game.bag_id).items.each do |item| %>
+                    <div class="form-check">
+                        <%= form.check_box item.id, class: "form-check-input"%>
+                        <label class="form-check-label" for="defaultCheck1">
+                            <%= item.to_string%>
+                        </label>
+                    </div>
+                <% end %>
+                <div class="actions">
+                    <%= form.submit "Load Cup", class: "btn btn-light" %>
+                </div>
+            <% end %>
+        <%#= render partial: 'item_select', locals: { path: switch_game_path(@game), type: 'checkbox' } %>
+        <%#= render partial: 'item_select', locals: {path_route: games_path, type: 'checkbox'} %>
+
     </div>
 <% end %>
 <%= render template: "layouts/application" %>

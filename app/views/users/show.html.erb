@@ -25,7 +25,7 @@
               <table>
               <% Bag.find(@user.bag).items.each do |itm| %>
                 <tr>
-                  <td>- <%=itm.to_s%></td>
+                  <td>- <%=itm.to_string%></td>
                 </tr>
               <%end%>
               </table>

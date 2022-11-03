@@ -36,7 +36,7 @@ class Item < ApplicationRecord
 	# 	reset
 	# end
 
-	def to_s
+	def to_string
 		if self.type == "Coin" 
 			return "Coin with denomination: #{self.denomination}"
 		else
