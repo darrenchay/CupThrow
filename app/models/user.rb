@@ -1,4 +1,4 @@
-require_relative "./A1/A1_Classes.rb"
+# require_relative "./classes.rb"
 class User < ApplicationRecord
     # User Data
     has_secure_password
@@ -8,36 +8,28 @@ class User < ApplicationRecord
 
     # Player Data
     # has_one :player # create a db for players?
-    attr_accessor :points
+    attr_accessor :points, :bag
     serialize :items, JSON
 
     # When creating a new user/player, set their points to 0 and add their initial items
     after_initialize do |usr|
         usr.points = 0
-        usr.items = [Coin.new(0.25), Coin.new(0.25), Coin.new(0.25), Die.new(), Die.new(), Die.new()] if usr.items == nil
-        usr
+
+        # Creating player bag
+        hand = Hand.new
+        bag = Bag.new
+        bag.store_all([Coin.new(0.25), Coin.new(0.25), Coin.new(0.25), Die.new().set(), Die.new().set(), Die.new().set()])
+        # bag.move_all(hand)
+        if !bag.save
+            bag.errors << "Error saving bag"
+        end
+
+        if usr.bag == nil
+            # usr.items = [Coin.new(0.25), Coin.new(0.25), Coin.new(0.25), Die.new(), Die.new(), Die.new()] 
+        end
     end
 
     def welcome
         "Hello #{self.name}!"
     end
-
-    # # Converts all items into the appropriate randomizer
-    # def list_to_randomizers(items)
-    #     new_items = []
-    #     items.each do |item|
-    #         new_items << to_randomizer(item)
-    #     end
-    #     new_items
-    # end
-    # def to_randomizer(item)
-    #     new_item = nil
-    #     if item && item["item"] == "coin" 
-    #         new_item = Coin.new(item["denomination"])
-    #     elsif item && item["item"] == "die" 
-    #         item["colour"]
-    #         new_item = Die.new(item["sides"], item["colour"].to_sym)
-    #     end
-    #     new_item
-    # end
 end

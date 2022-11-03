@@ -1,10 +1,8 @@
 <div class="body-sec">
-  <%= form_with do |form| %>
-    <% @game.get_bag_items.each do |item| %>
+  <%= form_with url: game_load_path, method: :post do |form| %>
+    <% session[:game].get_bag_items.each do |item| %>
         <div class="form-check">
-            <%= form.check_box :item, class: "form-check-input"%>
-            <%# <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"> %>
-            <%# <%= form.label :name %>
+            <%= form.check_box session[:game].get_bag_items.find_index(item), class: "form-check-input"%>
             <label class="form-check-label" for="defaultCheck1">
                 <%# TODO: renderer for items %>
                 <%= item.to_s%>

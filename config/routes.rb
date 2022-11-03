@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'game/new'
   get 'game/start'
-  get 'game/load'
+  post 'game/load', to: 'game#load'
   get 'game/switch'
   get 'game/block'
   get 'game/throw'

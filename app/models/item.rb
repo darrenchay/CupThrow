@@ -1,4 +1,4 @@
-class Randomizer
+class Item < ApplicationRecord
 	# abstract def item end
 	def reset
 		@result = nil

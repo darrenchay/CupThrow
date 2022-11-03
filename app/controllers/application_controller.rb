@@ -13,12 +13,8 @@ class ApplicationController < ActionController::Base
     end
 
     def stop_game
-        @game_in_progress = false
+        session[:game_in_progress] = false
         logger.info "FROM APP CONTROL GAME STOPPED========"
-    end
-
-    def game_in_progress
-        @game_in_progress
     end
 
 end

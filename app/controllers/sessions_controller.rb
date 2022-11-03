@@ -25,6 +25,7 @@ class SessionsController < ApplicationController
   # Signs out a user (Logging out)
   def destroy
     session[:user_id] = nil
+    reset_session()
     flash[:notice] = "You have been signed out!"
     redirect_to new_session_path
   end

@@ -1,4 +1,4 @@
-class Die < Randomizer
+class Die < Item
 	def item
 		:die
 	end
@@ -33,8 +33,8 @@ class Die < Randomizer
 		@result
 	end
 
-	def initialize(side_count = 6, colour = :white)
-		@item = :die
+	def set(side_count = 6, colour = :white)
+		# @type = :die
 		raise ArgumentError, "supplied side count #{side_count} is not an integer greater than 1" \
 		unless valid_sides(side_count)
 			@sides = side_count

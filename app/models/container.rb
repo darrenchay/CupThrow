@@ -1,10 +1,13 @@
-class RandomizerCollection
+class Container < ApplicationRecord
+	has_one :user, class_name: 'User', foreign_key: 'user_id'
+    serialize :items, JSON
+
 	def count
 		@items.length
 	end
 
 	def store(r)			
-		raise ArgumentError, "argument #{r} is not  a randomizer" unless r.is_a? Randomizer
+		raise ArgumentError, "argument #{r} is not an item" unless r.is_a? Item
 		@items << r
 		self
 	end
@@ -90,6 +93,8 @@ class RandomizerCollection
 
 	def initialize(it = [])
 		@items = it
+		logger.info "HERE===="
+		logger.info it
 	end
 
 	private

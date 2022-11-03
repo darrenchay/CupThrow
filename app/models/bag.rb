@@ -1,4 +1,4 @@
-class Bag < RandomizerCollection
+class Bag < Container
 	attr_reader :items
 	# when store() invoked, Bag makes sure that randomizer r is reset
 	def store(r)			

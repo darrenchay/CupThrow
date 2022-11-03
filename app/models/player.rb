@@ -1,4 +1,4 @@
-class Player
+class Player < User
 	attr_reader :bag
 	# returns the name of the player (does not set it)
 	def name
@@ -64,8 +64,7 @@ class Player
 		raise ArgumentError, "supplied name #{the_name} should be a string, but is a #{the_name.class}" \
 		  unless the_name.is_a? String
 		@name = the_name
-		# items = [Coin.new(0.25), Coin.new(0.25), Coin.new(0.25), Die.new(), Die.new(), Die.new()]
-		@bag = Bag.new()
+		@bag = Bag.new
 		@cup = Cup.new
 		@all_results = []
 	end
