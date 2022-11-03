@@ -36,13 +36,11 @@ class Item < ApplicationRecord
 	# 	reset
 	# end
 
-	# def to_s
-	# 	string = "Item: " 
-	# 	if @type == :coin 
-	# 		string += @type.to_s + ", Denomination: " + @denomination.to_s
-	# 	else
-	# 		string += @type.to_s + ", Colour: " + @colour.to_s + ", Sides: " + @sides.to_s
-	# 	end
-	# 	string
-	# end
+	def to_s
+		if self.type == "Coin" 
+			return "Coin with denomination: #{self.denomination}"
+		else
+			return "Die with sides: #{self.sides} and colour: #{self.colour}"
+		end
+	end
 end	

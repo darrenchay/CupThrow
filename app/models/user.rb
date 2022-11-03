@@ -15,6 +15,8 @@ class User < ApplicationRecord
         bag.store_all([Coin.create(denomination: 0.25), Coin.create(denomination: 0.25), Coin.create(denomination: 0.25), Die.create(sides: 6, colour: :white), Die.create(sides: 6, colour: :white), Die.create(sides: 6, colour: :white)])
         if !bag.save!
             bag.errors << "Error saving bag"
+        else 
+            usr.update(bag: bag.id)
         end
     end
 

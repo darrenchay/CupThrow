@@ -20,11 +20,15 @@
 
             <p>
               <strong>Bag Contents:</strong>
-              <%# Make prettier %>
-              <%= Bag.find(@user.bag).items.each do |item| %>
-                <%item.to_s%>
-              <%end%>
             </p>
+              <%# Make prettier %>
+              <table>
+              <% Bag.find(@user.bag).items.each do |itm| %>
+                <tr>
+                  <td>- <%=itm.to_s%></td>
+                </tr>
+              <%end%>
+              </table>
             <div class="user_actions">
               <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-secondary' %>
               <%= link_to 'Delete Account', @user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>

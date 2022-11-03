@@ -32,11 +32,6 @@ class Coin < Item
 	# 	return self
 	# end
 
-	def to_s
-		# logger.info self
-		"Coin with denomination: #{@denomination}"
-	end
-
 	private
 
 	def valid_denomination(denom)

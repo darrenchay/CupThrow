@@ -24,10 +24,6 @@ class Die < Item
 		@result
 	end
 
-	def to_s 
-		"Die with sides: #{@sides} and colour: #{@colour}"
-	end
-
 	# def set(side_count = 6, colour = :white)
 	# 	raise ArgumentError, "supplied side count #{side_count} is not an integer greater than 1" \
 	# 	unless valid_sides(side_count)
