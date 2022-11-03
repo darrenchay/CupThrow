@@ -1,19 +1,18 @@
 class Die < Item
-	def item
-		:die
-	end
+    validates :sides, presence: true
+    validates :colour, presence: true
 
-	def colour 		# returns the colour of the die (does not set it)
-		@colour
-	end
+	# def colour 		# returns the colour of the die (does not set it)
+	# 	@colour
+	# end
 
 	def descriptor
 		self.colour
 	end
 
-	def sides			# returns the number of sides ( does not set it)
-		@sides
-	end
+	# def sides			# returns the number of sides ( does not set it)
+	# 	@sides
+	# end
 
 	def randomize				# flips the coin and returns the number of flips performed (not the result)
 		@result = rand 1..self.sides
@@ -33,18 +32,17 @@ class Die < Item
 		@result
 	end
 
-	def set(side_count = 6, colour = :white)
-		# @type = :die
-		raise ArgumentError, "supplied side count #{side_count} is not an integer greater than 1" \
-		unless valid_sides(side_count)
-			@sides = side_count
+	# def set(side_count = 6, colour = :white)
+	# 	raise ArgumentError, "supplied side count #{side_count} is not an integer greater than 1" \
+	# 	unless valid_sides(side_count)
+	# 		@sides = side_count
 
-		raise ArgumentError, "supplied colour #{colour} is not one of { :white, :red, :green, :blue, :yellow, :black }" \
-		  unless valid_colour(colour)
-		@colour = colour
-
-		reset
-	end
+	# 	raise ArgumentError, "supplied colour #{colour} is not one of { :white, :red, :green, :blue, :yellow, :black }" \
+	# 	  unless valid_colour(colour)
+	# 	@colour = colour
+	# 	reset
+	# 	return self
+	# end
 
 	private
 

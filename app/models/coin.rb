@@ -1,12 +1,9 @@
 class Coin < Item
+    validates :denomination, presence: true
 
-	def item
-		:coin
-	end
-
-	def denomination			# returns the denomination of the coin (does not set it)
-		@denomination
-	end
+	# def denomination			# returns the denomination of the coin (does not set it)
+	# 	@denomination
+	# end
 
 	def descriptor
 		denomination
@@ -31,13 +28,13 @@ class Coin < Item
 		(@result == :H) ? 1 : 0
 	end
 
-	def initialize(denom = 1, arg2 = nil)
-		# @type = :coin
-		raise ArgumentError, "supplied denomination #{denom} is not one of { 0.1, 0.25, 0.05, 1, 2 }" \
-		  unless valid_denomination(denom)
-		@denomination = denom
-		reset
-	end
+	# def set(denom = 1, arg2 = nil)
+	# 	raise ArgumentError, "supplied denomination #{denom} is not one of { 0.1, 0.25, 0.05, 1, 2 }" \
+	# 	  unless valid_denomination(denom)
+	# 	@denomination = denom
+	# 	reset
+	# 	return self
+	# end
 
 	private
 

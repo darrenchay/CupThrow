@@ -13,6 +13,7 @@ class Container < ApplicationRecord
 	end
 
 	def store_all(randomizers)
+		logger.info randomizers
 		randomizers.each do |item|
 			self.store item
 		end
@@ -92,11 +93,10 @@ class Container < ApplicationRecord
 	end
 
 	def initialize(it = [])
-		@items = it
+		@items = []
 		logger.info "HERE===="
-		logger.info it
+		logger.info @items
 	end
-
 	private
 
 	def reinitialize
