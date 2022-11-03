@@ -2,9 +2,7 @@
 <% content_for :game_content do %>
     <div class="container">
         <h5>Please Select items from your bag</h5>
-        <%= render partial: 'games/item_select', locals: {path: switch_game_path(@game), type: 'checkbox'} %>
-
-        <%#= render partial: 'item_select', locals: { path: switch_game_path(@game) } %>
+        <%= render partial: 'item_select', locals: {path: games_path, type: 'checkbox'} %>
     </div>
 <% end %>
 <%= render template: "layouts/application" %>

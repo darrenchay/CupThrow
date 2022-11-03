@@ -1,8 +1,8 @@
 class GamesController < ApplicationController
   skip_before_action :stop_game
   attr_reader :info
-  attr_accessor :selected
 
+  # Called when we want to start a new game
   def new
     @game = Game.new
     @info = "Welcome to cup throw! Please choose the items you want to load to your cup"
@@ -14,24 +14,23 @@ class GamesController < ApplicationController
     server_cup = Cup.create(user_id: current_user.id)
   
     @game = Game.create(user_id: current_user.id, bag_id: bag.id, player_cup_id: player_cup.id, server_cup_id: server_cup.id)
-    logger.info "CREATE PAGE"
+    session[:game_id] = @game.id
+  end
+
+  # Called after loading the cups, which starts the game
+  def create
+    logger.info params
+    redirect_to action: 'switch', id: session[:game_id]
   end
   
-  # def create
-  #   # session[:game] = @game
-  # end
-
-  def load
+  def switch
     logger.info "loaded cups"
-    game = session[:game]
-    logger.info game
-    logger.info @game
-    logger.info @game.player.name
+    game = session[:game_id]
+    logger.info params
+    # logger.info @game
+    # logger.info @game.player.name
     # params.each
     logger.info params["0"]
-  end
-
-  def switch
   end
 
   def roll
