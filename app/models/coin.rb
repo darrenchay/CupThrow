@@ -20,6 +20,10 @@ class Coin < Item
 		@result
 	end 
 
+	def max
+		1
+	end
+
 	def up
 		(@result == :H) ? 1 : 0
 	end

@@ -18,35 +18,36 @@ class GamesController < ApplicationController
 
   # Called after loading the cups, which starts the game
   def create
-    logger.info "CREATE====="
-    logger.info params
     # Loading items to the appropriate cups
     player_cup_items = params.select{|key, val| val == "1"}.keys
     server_cup_items = params.select{|key, val| val == "0"}.keys
-    logger.info player_cup_items
-    logger.info get_items_from_map(player_cup_items)
 
     curr_game = Game.find(session[:game_id])
-    cup_player = Container.find(curr_game.player_cup_id).store_all(get_items_from_map(player_cup_items))
-    logger.info cup_player.items
+    cup_player = Cup.find(curr_game.player_cup_id).store_all(get_items_from_map(player_cup_items))
+    cup_server = Cup.find(curr_game.server_cup_id).store_all(get_items_from_map(server_cup_items))
 
-    cup_server = Container.find(curr_game.server_cup_id).store_all(get_items_from_map(server_cup_items))
-    logger.info cup_server.items
-
-    bag = Bag.find((curr_game).bag_id)
-    bag.empty
-    logger.info bag
-    redirect_to action: 'switch', id: session[:game_id]
+    # Check if server will switch
+    logger.info cup_server.get_max_points.to_s + "<- SERVER TESTING PLAYER ->" + cup_player.get_max_points.to_s
+    if cup_server.get_max_points > cup_player.get_max_points
+      redirect_to action: 'roll'
+    else 
+      redirect_to action: 'switch'
+    end
+    # redirect_to action: 'switch', id: session[:game_id]
   end
   
   def switch
-    logger.info "loaded cups"
-    game = session[:game_id]
-    logger.info params
-    logger.info params["0"]
-    # logger.info @game
-    # logger.info @game.player.name
-    # params.each
+    curr_game = session[:game_id]
+    # player_max = Cup.find(curr_game.player_cup_id).get_max_points
+    # server_max = Cup.find(curr_game.server_cup_id).get_max_points
+    # if server_max > player_max 
+    #   redirect_to action: 'roll'
+    # else 
+    #   redirect_to action: 'block'
+    # end
+  end
+
+  def block
   end
 
   def roll

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   #   end
   # end
   get 'games/:id/switch' => 'games#switch', as: :switch
+  get 'games/:id/block' => 'games#block', as: :block
   get 'games/:id/roll' => 'games#roll', as: :roll
   get 'games/:id/results' => 'games#results', as: :results
   resources :users, except: :index

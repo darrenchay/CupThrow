@@ -20,6 +20,10 @@ class Die < Item
 		@result
 	end 
 
+	def max
+		self.sides
+	end
+
 	def up
 		@result
 	end

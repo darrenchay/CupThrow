@@ -2,6 +2,14 @@ class Container < ApplicationRecord
 	has_one :user, class_name: 'User', foreign_key: 'user_id'
     has_many :items
 
+	def get_max_points 
+		total = 0
+		self.items.each do |item|
+			total += item.max
+		end
+		tot
+	end
+
 	def count
 		self.items.length
 	end
@@ -97,11 +105,6 @@ class Container < ApplicationRecord
 		# Adding a placeholder so bag is not null
 		b.items = [0] if b.items == nil
 	end
-	# def initialize(it = [])
-	# 	self.items = []
-	# 	logger.info "HERE===="
-	# 	logger.info self.items
-	# end
 	private
 
 	def reinitialize
