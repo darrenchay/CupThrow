@@ -1,0 +1,15 @@
+<div class="container">
+  <% Bag.find(@game.bag_id).items do |item| %>
+      <div class="form-check">
+          <% if type == 'checkbox' %>
+            <%= form.check_box item, class: "form-check-input"%>
+          <% else %>
+            <%= form.radio_button item, class: "form-check-input"%>
+          <% end %>
+          <label class="form-check-label" for="defaultCheck1">
+              <%# TODO: renderer for items %>
+              <%= item.to_s%>
+          </label>
+      </div>
+  <% end %>
+</div>

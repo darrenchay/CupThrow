@@ -1,0 +1,17 @@
+<%= content_for :game_info, @info %>
+<% content_for :game_content do %>
+    <div class="container">
+        <h5>Please Select items from your bag</h5>
+        <div class="body-sec">
+            <%= form_for(@game, url: switch_game_path(@game)) do |form| %>
+                <%= render partial: 'item_select', locals: {form: form, game: @game, type: 'checkbox'} %>
+
+                <div class="actions">
+                <%= form.submit "Load Cup", class: "btn btn-light" %>
+                </div>
+            <% end %>
+        </div>
+        <%#= render partial: 'item_select', locals: { path: switch_game_path(@game) } %>
+    </div>
+<% end %>
+<%= render template: "layouts/application" %>
