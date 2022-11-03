@@ -1,6 +1,6 @@
 # require_relative "./classes.rb"
 class Game < ApplicationRecord
-    attr_accessor :player, :server
+    # attr_accessor :player, :server
     has_one :user, class_name: 'User', foreign_key: 'user_id'
     has_one :bag, class_name: 'RandomizerContainer', foreign_key: 'bag_id'
     has_one :player_cup, class_name: 'RandomizerContainer', foreign_key: 'player_cup_id'
