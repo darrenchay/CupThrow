@@ -11,7 +11,7 @@ class GamesController < ApplicationController
     session[:game_in_progress] = true
     
     # Setting values
-    bag = current_user.bag
+    bag = Bag.find(current_user.bag)
     player_cup = Cup.create(user_id: current_user.id)
     server_cup = Cup.create(user_id: current_user.id)
     @game = Game.create(user_id: current_user.id, bag_id: bag.id, player_cup_id: player_cup.id, server_cup_id: server_cup.id)
@@ -29,7 +29,7 @@ class GamesController < ApplicationController
     cup_server = Cup.find(curr_game.server_cup_id).store_all(get_items_from_map(server_cup_items))
 
     # Check if server will switch
-    logger.info cup_server.get_max_points.to_s + "<- SERVER TESTING PLAYER ->" + cup_player.get_max_points.to_s
+    # logger.info cup_server.get_max_points.to_s + "<- SERVER TESTING PLAYER ->" + cup_player.get_max_points.to_s
     player_max = cup_player.get_max_points
     server_max = cup_server.get_max_points
     # If server has less items than player, and random number is greater than ratio, then proceed to try and switch
@@ -117,7 +117,7 @@ class GamesController < ApplicationController
       # Roll items
       prolled_item = item.randomize
       srolled_item = pcup_highest_item.randomize
-      logger.info "====================PLAYER HAS #{prolled_item}: #{prolled_item.result} AND SERVER #{srolled_item}: #{srolled_item.result}"
+      # logger.info "====================PLAYER HAS #{prolled_item}: #{prolled_item.result} AND SERVER #{srolled_item}: #{srolled_item.result}"
       if prolled_item.result <= srolled_item.result
         # Put the items the player and server have chosen into their cups after switching their cups
         @game.switch_cups(item, pcup_highest_item)

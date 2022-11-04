@@ -21,9 +21,9 @@
             <p>
               <strong>Bag Contents:</strong>
             </p>
-              <%# Make prettier %>
               <table>
-              <% @user.bag.items.each do |itm| %>
+              <%# @user.bag.items.each do |itm| %>
+              <% Bag.find(@user.bag).items.each do |itm| %>
                 <tr>
                   <td>- <%=itm.to_string%></td>
                 </tr>
