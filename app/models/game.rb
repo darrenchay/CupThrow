@@ -1,37 +1,41 @@
-require_relative "./A1/A1_Classes.rb"
-class Game
-    attr_accessor :player, :server
+# require_relative "./classes.rb"
+class Game < ApplicationRecord
+    # attr_accessor :player, :server
+    has_one :user, class_name: 'User', foreign_key: 'user_id'
+    has_one :bag, class_name: 'RandomizerContainer', foreign_key: 'bag_id'
+    has_one :player_cup, class_name: 'RandomizerContainer', foreign_key: 'player_cup_id'
+    has_one :server_cup, class_name: 'RandomizerContainer', foreign_key: 'server_cup_id'
 
-    def initialize(name, items)
-        @player = Player.new(name) #Player
-        @server = Player.new("Server")
+    # Creates and saves all components of the games
+    def setup_game(user, items)
+        # @player = Player.new(user.name) #Player
+        # @server = Player.new("Server")
 
         # Loading the bag
         hand = Hand.new
         hand.store_all(list_to_randomizers(items))
-        @player.move_all(hand)
+        # @player.move_all(hand)
+
+        # Setting values
+        @user = user
+        bag = Bag.new
+        @bag = bag
+        bag.move_all(hand)
+        player_cup = Cup.create
+        @player_cup = player_cup
+        cup_server = Cup.create
+        @server_cup = cup_server
+
+        logger.info bag
+        logger.info player_cup
+        logger.info cup_server
+        if !bag.save || !player_cup.save || !cup_server.save
+            format.json { render json: bag.errors, status: :unprocessable_entity }
+        end
+
     end
 
     def get_bag_items
-        @player.bag.items
-    end
-
-    # Converts all items into the appropriate randomizer
-    def list_to_randomizers(items)
-        new_items = []
-        items.each do |item|
-            new_items << to_randomizer(item)
-        end
-        new_items
-    end
-    def to_randomizer(item)
-        new_item = nil
-        if item && item["item"] == "coin" 
-            new_item = Coin.new(item["denomination"])
-        elsif item && item["item"] == "die" 
-            item["colour"]
-            new_item = Die.new(item["sides"], item["colour"].to_sym)
-        end
-        new_item
+        @bag
     end
 end

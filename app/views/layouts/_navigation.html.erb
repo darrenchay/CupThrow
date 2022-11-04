@@ -5,8 +5,8 @@
             <ul class="nav navbar-nav mr-auto">
             <% if current_user %>
                 <li class='nav-item'><%= link_to 'Account', user_path(current_user), class: 'nav-link'%> </li>  
-                <% if !@game_in_progress %>
-                    <li class='nav-item'><%= link_to 'Start A Game!', game_new_path, class: 'btn btn-success'%> </li>
+                <% if !session[:game_in_progress] %>
+                    <li class='nav-item'><%= link_to 'Start A Game!', new_game_path, class: 'btn btn-success'%> </li>
                 <% end %>
             <% end %>
             </ul>

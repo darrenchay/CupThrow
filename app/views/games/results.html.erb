@@ -1,0 +1,32 @@
+<%= content_for :game_info, @info %>
+<% content_for :game_content do %>
+    <div class="row">
+        <%# Player Cup region %>
+        <div class="col-lg-5">
+            <h3>Your Cup</h4>
+            <table>
+                <% @player_cup_items.each do |item| %>
+                    <tr>
+                        <td>- <%=item.to_string%> Result: <%=item.result%></td>
+                    </tr>
+                <%end%>
+            </table>
+
+            <h4>Your score: <%=@player_score%></h3>
+        </div>
+        <%# Server Region %>
+        <div class="col-lg-5">
+            <h3>Server's Cup </h4>
+            <table>
+                <% @server_cup_items.each do |item| %>
+                    <tr>
+                        <td>- <%=item.to_string%> Result: <%=item.result%></td>
+                    </tr>
+                <%end%>
+            </table>
+            <h4>Server's score: <%=@server_score%></h3>
+        </div>
+    </div>
+
+<% end %>
+<%= render template: "layouts/application" %>

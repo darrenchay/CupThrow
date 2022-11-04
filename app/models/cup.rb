@@ -1,4 +1,4 @@
-class Cup < RandomizerCollection
+class Cup < Container
 	# each item in the cup is rolled or flipped,
 	def throw				
 		@items.each do |item|

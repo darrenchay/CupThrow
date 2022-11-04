@@ -5,8 +5,7 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :email
       t.string :password_digest
       t.integer :points, :default => 0
-      t.text :items, array: true
-
+      t.integer :bag
       t.timestamps
     end
   end

@@ -1,15 +1,28 @@
-class RandomizerCollection
+class Container < ApplicationRecord
+	has_one :user, class_name: 'User', foreign_key: 'user_id'
+    has_many :items
+
+	def get_max_points 
+		total = 0
+		self.items.each do |item|
+			total += item.max
+		end
+		total
+	end
+
 	def count
-		@items.length
+		self.items.length
 	end
 
 	def store(r)			
-		raise ArgumentError, "argument #{r} is not  a randomizer" unless r.is_a? Randomizer
-		@items << r
+		raise ArgumentError, "argument #{r} is not an item" unless r.is_a? Item
+		self.items << r
 		self
 	end
 
 	def store_all(randomizers)
+		logger.info "iterating randomizers======"
+		logger.info randomizers
 		randomizers.each do |item|
 			self.store item
 		end
@@ -38,7 +51,7 @@ class RandomizerCollection
 		indices_to_delete = []
 		
 		# selects items from randomizer collection based on the description
-		@items.each.with_index do |item, i|
+		self.items.each.with_index do |item, i|
 			if description.all_match item
 				indices_to_delete << i 
 				hand.store item
@@ -61,7 +74,7 @@ class RandomizerCollection
 	# returns a Hand of all items in the collection and resets the collection (sets it to empty)
 	def empty_to_hand
 		hand = Hand.new
-		@items.each { |item| hand.store(item) }   # copies references of our items to hand
+		self.items.each { |item| hand.store(item) }   # copies references of our items to hand
 		reinitialize                              # eliminates reference to our former items in us
 		hand
 	end
@@ -71,7 +84,7 @@ class RandomizerCollection
 	end
 
 	def reset
-		@items.each { |item| item.reset }
+		self.items.each { |item| item.reset }
 		self
 	end
 
@@ -79,7 +92,7 @@ class RandomizerCollection
 	# the originals items are discarded from this object, but if they reside elsewhere
 	# in another container/object, they are left alone and untouched
 	def dup_items							
-		@items = @items.map { |it| it.dup }
+		self.items = self.items.map { |it| it.dup }
 		self
 	end
 
@@ -88,19 +101,19 @@ class RandomizerCollection
 		sd.dup_items
 	end
 
-	def initialize(it = [])
-		@items = it
+	after_initialize do |b|
+		# Adding a placeholder so bag is not null
+		b.items = [0] if b.items == nil
 	end
-
 	private
 
 	def reinitialize
-		@items = []
+		self.items = []
 	end
 
 	def remove_at(indices)
 		indices.reverse.each do |del|			# reverses to delete from back to front, ow unstable
-			@items.delete_at del 				# delete.at is an array method
+			self.items.delete_at del 				# delete.at is an array method
 		end
 	end
 

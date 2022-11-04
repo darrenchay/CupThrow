@@ -1,8 +1,0 @@
-<%= content_for :game_info, @info %>
-<% content_for :game_content do %>
-    <div class="container">
-        <h5>Please Select items from your bag</h5>
-        <%= render 'item_select', game: @game %>
-    </div>
-<% end %>
-<%= render template: "layouts/application" %>

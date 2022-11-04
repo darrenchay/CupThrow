@@ -1,4 +1,4 @@
-class Hand < RandomizerCollection
+class Hand < Container
 	# removes and returns the last objected added 
 	# if no objects stored, return nil
 	def next 					

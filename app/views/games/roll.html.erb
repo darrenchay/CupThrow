@@ -1,0 +1,33 @@
+<%= content_for :game_info, @info %>
+<% content_for :game_content do %>
+    <div class="row">
+        <%# Player Cup region %>
+        <div class="col-lg-5">
+            <h4><%=current_user.name%>'s Cup</h4>
+            <table>
+                <% Cup.find(@game.player_cup_id).items.each do |item| %>
+                    <tr>
+                        <td>- <%=item.to_string%></td>
+                    </tr>
+                <%end%>
+            </table>
+        </div>
+        <%# Server Region %>
+        <div class="col-lg-5">
+            <h4>Server's Cup </h4>
+            <table>
+                <% Cup.find(@game.server_cup_id).items.each do |item| %>
+                    <tr>
+                        <td>- <%=item.to_string%></td>
+                    </tr>
+                <%end%>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10 text-center">
+            <%= link_to 'Throw Cup', results_path, class: 'btn btn-large btn-warning' %>
+        </div>
+    </div>
+<% end %>
+<%= render template: "layouts/application" %>

@@ -1,4 +1,4 @@
-require "./A1_Classes.rb"
+require "./classes.rb"
 
 rnd = Randomizer.new
 rnd.result

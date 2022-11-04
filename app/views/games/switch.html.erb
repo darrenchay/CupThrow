@@ -1,0 +1,37 @@
+<%= content_for :game_info, @info %>
+<% content_for :game_content do %>
+    <div class="row">
+        <%# Player Cup region %>
+        <div class="col-lg-5">
+            <h4><%=current_user.name%>'s Cup</h4>
+            <table>
+                <% Cup.find(@game.player_cup_id).items.each do |item| %>
+                    <tr>
+                        <td>- <%=item.to_string%></td>
+                    </tr>
+                <%end%>
+            </table>
+        </div>
+        <%# Server Region %>
+        <div class="col-lg-5">
+            <h4>Server's Cup </h4>
+            <h5>Select one item from here</h5>
+            <%= form_with(url: roll_path(@game)) do |form| %>
+                <% Cup.find(@game.server_cup_id).items.each do |item| %>
+                    <div class="form-check">
+                        <%= form.radio_button item.id, class: "form-check-input"%>
+                        <label class="form-check-label" for="defaultCheck1">
+                            <%= item.to_string%>
+                        </label>
+                    </div>
+                <% end %>
+                <div class="actions">
+                    <%= form.submit "Pick Item", class: "btn btn-light" %>
+                </div>
+            <% end %>
+        </div>
+
+    </div>
+<% end %>
+<%= render template: "layouts/application" %>
+            
