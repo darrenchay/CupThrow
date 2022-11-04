@@ -10,10 +10,6 @@ class Coin < Item
 		self
 	end
 
-	def flip
-		self.randomize
-	end
-
 	def max
 		1
 	end

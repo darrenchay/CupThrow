@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   skip_before_action :stop_game
   before_action :set_cache_buster, only: [:create, :switch, :roll, :results]
   attr_reader :info
-  after_action :switch_cups, only: [:switch]
+  before_action :switch_cups, only: [:roll]
 
   # Called when we want to start a new game
   def new
@@ -65,14 +65,14 @@ class GamesController < ApplicationController
     @player_results = @game.roll_player
     @server_results = @game.roll_server
 
-    @player_sum = @player_results.sum
-    @server_sum = @server_results.sum
+    @player_score = @player_results.sum
+    @server_score = @server_results.sum
 
     @player_cup_items = Cup.find(@game.player_cup_id).items
     @server_cup_items = Cup.find(@game.server_cup_id).items
     
     # If won, add to cumlative score
-    if @player_sum > @server_sum
+    if @player_score > @server_score
       @user.points += (@player_score - @server_score)
       logger.info "saving user=========="
       logger.info @user
@@ -98,7 +98,21 @@ class GamesController < ApplicationController
   end
 
   def switch_cups
-    
-    logger.info "Switched cups"
+    logger.info params
+    if params["selected_item"]
+      @game = Game.find(session[:game_id])
+      item = Item.find(params["selected_item"].to_i)
+      
+      pcup_highest_item = Game.find(session[:game_id]).get_highest_item
+      logger.info "SERVER CHOSE HIGHEST ITEM: #{pcup_highest_item.to_string}"
+      prolled_item = item.randomize
+      srolled_item = pcup_highest_item.randomize
+      logger.info "====================PLAYER HAS #{prolled_item}: #{prolled_item.result} AND SERVER #{srolled_item}: #{srolled_item.result}"
+      if prolled_item.result < srolled_item.result
+        # Put the items the player and server have chosen into their cups after switching their cups
+        @game.switch_cups(item, pcup_highest_item)
+      end
+    end
   end
+
 end

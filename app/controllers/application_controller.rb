@@ -15,11 +15,11 @@ class ApplicationController < ActionController::Base
     def stop_game
         logger.info "STOPPING GAME"
         if session[:user_id] && session[:game_in_progress]
-            logger.info "Resetting bag"
             # Resetting bag
             game = Game.find(session[:game_id])
             Bag.find(game.bag_id).store_all(Cup.find(game.player_cup_id).items).store_all(Cup.find(game.server_cup_id).items)
 
+            game.delete
             # Removing game session
             session[:game_id] = nil
         end

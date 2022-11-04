@@ -52,6 +52,7 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
+    Bag.destroy(@user.bag)
     @user.destroy
     reset_session()
     # redirect_to action: "sessions#destroy" and return #,  notice: "User was successfully destroyed."

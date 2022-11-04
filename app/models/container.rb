@@ -10,6 +10,14 @@ class Container < ApplicationRecord
 		total
 	end
 
+	def find_max_item
+		self.items.max_by{|item| item.max}
+	end
+
+	def pop_item(item)
+		self.items -= [item]
+	end
+
 	def count
 		self.items.length
 	end
@@ -21,8 +29,6 @@ class Container < ApplicationRecord
 	end
 
 	def store_all(randomizers)
-		logger.info "iterating randomizers======"
-		logger.info randomizers
 		randomizers.each do |item|
 			self.store item
 		end

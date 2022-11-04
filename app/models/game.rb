@@ -6,14 +6,38 @@ class Game < ApplicationRecord
     has_one :player_cup, class_name: 'RandomizerContainer', foreign_key: 'player_cup_id'
     has_one :server_cup, class_name: 'RandomizerContainer', foreign_key: 'server_cup_id'
 
+    def get_highest_item
+        Cup.find(self.player_cup_id).find_max_item
+    end
+
+    # Place the players item into the servers cup, and vice versa, and update ids 
+    def switch_cups(p_item_chosen, s_item_chosen)
+        sc = Cup.find(self.server_cup_id)
+        pc = Cup.find(self.player_cup_id)
+
+        sc.pop_item(p_item_chosen)
+        pc.pop_item(s_item_chosen)
+        pc.store(p_item_chosen)
+        sc.store(s_item_chosen)
+        # @game.switch_cups
+        # sc = Cup.find(@game.server_cup_id).store(pcup_highest_item)
+        # pc = Cup.find(@game.player_cup_id).store(item)
+        logger.info pc.items
+        logger.info sc.items
+
+        # Switch cups
+        tmp = self.player_cup_id
+        self.player_cup_id = self.server_cup_id
+        self.server_cup_id = tmp
+        self.save
+    end
+
     def roll_player
         Cup.find(self.player_cup_id).throw
-        # logger.info player_results.sum
     end
 
     def roll_server
         Cup.find(self.server_cup_id).throw
-        # logger.info server_results.sum
     end
 
     # Add a random die or coin to the players bag
