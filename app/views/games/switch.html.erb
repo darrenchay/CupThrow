@@ -15,11 +15,11 @@
         <%# Server Region %>
         <div class="col-lg-5">
             <h4>Server's Cup </h4>
-            <h5>Select one item from here</h5>
+            <h5>Select one item from the cup</h5>
             <%= form_with(url: roll_path(@game)) do |form| %>
                 <% Cup.find(@game.server_cup_id).items.each do |item| %>
                     <div class="form-check">
-                        <%= form.radio_button item.id, class: "form-check-input"%>
+                        <%= radio_button_tag :selected_item, item.id%>
                         <label class="form-check-label" for="defaultCheck1">
                             <%= item.to_string%>
                         </label>

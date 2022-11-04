@@ -48,14 +48,16 @@ class GamesController < ApplicationController
              The server will also pick the largest item from your cup and do the same.\
              If you get a higher value than the server, you will be able to block the switch "
   end
+  # after switch here, pops out items, then rolls, and see if we need to switch or not
 
   def roll
+    # If item selected to roll is true, flip cups
+    server_cup_items = params.select{|key, val| val == "0"}.keys
     @game = Game.find(session[:game_id])
     @info = "Throw your cup and see who has the highest score!"
-
-    # Add throwing mechanism here
   end
 
+  # Cups are thrown and winner is determined
   def results
     @game = Game.find(session[:game_id])
 
@@ -63,12 +65,14 @@ class GamesController < ApplicationController
     @player_results = @game.roll_player
     @server_results = @game.roll_server
 
+    @player_sum = @player_results.sum
+    @server_sum = @server_results.sum
+
     @player_cup_items = Cup.find(@game.player_cup_id).items
     @server_cup_items = Cup.find(@game.server_cup_id).items
-  
     
     # If won, add to cumlative score
-    if @player_results.sum > @server_results.sum
+    if @player_sum > @server_sum
       @user.points += (@player_score - @server_score)
       logger.info "saving user=========="
       logger.info @user
@@ -94,6 +98,7 @@ class GamesController < ApplicationController
   end
 
   def switch_cups
+    
     logger.info "Switched cups"
   end
 end
