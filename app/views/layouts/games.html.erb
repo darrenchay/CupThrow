@@ -15,6 +15,9 @@
                 <p>
                     <div class="caption"><%= content_for?(:game_info) ? yield(:game_info) : yield %></div>
                 </p>
+                <% if flash[:error] %>
+                        <%= content_tag :p, "NOTICE: " + flash[:error] %>
+                <% end %>
                     <img src="https://media.gettyimages.com/vectors/pair-of-dice-and-a-dice-cup-vector-id1003195934?s=2048x2048" alt="Sammy the Shark">
 
             </div>

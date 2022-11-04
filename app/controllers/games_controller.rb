@@ -22,6 +22,11 @@ class GamesController < ApplicationController
   def create
     # Loading items to the appropriate cups
     player_cup_items = params.select{|key, val| val == "1"}.keys
+    if player_cup_items.length == 0
+      flash[:error] = "Please select at least one item before proceeding"
+      redirect_to new_game_path
+      return
+    end
     server_cup_items = params.select{|key, val| val == "0"}.keys
 
     curr_game = Game.find(session[:game_id])
@@ -104,7 +109,7 @@ class GamesController < ApplicationController
 
   # Player attempts to block
   def switch_cups
-    logger.info params
+    logger.info request.referrer
     if params["selected_item"]
       @game = Game.find(session[:game_id])\
       # Retrieving item player has selected
@@ -125,6 +130,9 @@ class GamesController < ApplicationController
       else
         params[:notice] = "Since the server rolled a #{srolled_item.result} and you rolled #{prolled_item.result}, your cups have not been switched"
       end
+    elsif (!params["selected_item"]) && (request.referrer.include? "switch")
+      flash[:error] = "Please select one item from the server's cup"
+      redirect_to action: 'switch', id: session[:game_id]
     end
   end
 
