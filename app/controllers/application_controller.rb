@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
             game = Game.find(session[:game_id])
             Bag.find(game.bag_id).store_all(Cup.find(game.player_cup_id).items).store_all(Cup.find(game.server_cup_id).items)
 
+            # Deleting game
             game.delete
             # Removing game session
             session[:game_id] = nil

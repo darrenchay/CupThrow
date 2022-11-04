@@ -52,9 +52,7 @@ ActiveRecord::Schema.define(version: 2022_11_03_041444) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "containers", "users"
   add_foreign_key "games", "containers", column: "bag_id"
   add_foreign_key "games", "containers", column: "player_cup_id"
   add_foreign_key "games", "containers", column: "server_cup_id"
-  add_foreign_key "games", "users"
 end

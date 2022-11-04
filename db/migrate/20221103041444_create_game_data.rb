@@ -12,13 +12,13 @@ class CreateGameData < ActiveRecord::Migration[6.1]
 
     create_table :containers do |t|
       t.string :type
-      t.references :user, null: false, foreign_key: true
+      t.references :user, null: false
 
       t.timestamps      
     end
 
     create_table :games do |t|
-      t.references :user, null: false, foreign_key: true
+      t.references :user, null: false
       t.integer :bag_id, null: false
       t.integer :player_cup_id, null: false
       t.integer :server_cup_id, null: false

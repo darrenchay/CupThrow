@@ -1,9 +1,4 @@
 class Game < ApplicationRecord
-    has_one :user, class_name: 'User', foreign_key: 'user_id'
-    has_one :bag, class_name: 'RandomizerContainer', foreign_key: 'bag_id'
-    has_one :player_cup, class_name: 'RandomizerContainer', foreign_key: 'player_cup_id'
-    has_one :server_cup, class_name: 'RandomizerContainer', foreign_key: 'server_cup_id'
-
     def get_highest_item
         Cup.find(self.player_cup_id).find_max_item
     end
