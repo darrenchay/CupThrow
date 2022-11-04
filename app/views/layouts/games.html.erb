@@ -8,11 +8,14 @@
             </div>
             <div class="col-lg-4">
             <%# Info Region %>
-                <h3><%= current_user.name + "'s Points: " + current_user.points.to_s %></h3>
+                <h2><%= current_user.name + "'s Points: " + current_user.points.to_s %></h3>
+                    <% if params[:notice] %>
+                        <%= content_tag :p, "NOTICE: " + params[:notice] %>
+                    <% end %>
                 <p>
                     <div class="caption"><%= content_for?(:game_info) ? yield(:game_info) : yield %></div>
-                    <img src="https://media.gettyimages.com/vectors/pair-of-dice-and-a-dice-cup-vector-id1003195934?s=2048x2048" alt="Sammy the Shark">
                 </p>
+                    <img src="https://media.gettyimages.com/vectors/pair-of-dice-and-a-dice-cup-vector-id1003195934?s=2048x2048" alt="Sammy the Shark">
 
             </div>
         </div>
