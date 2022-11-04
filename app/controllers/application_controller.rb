@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-    before_action :require_login, :stop_game #make sure game is stopped before any action outside of the game
+    before_action :require_login, :stop_game, :set_cache_buster #make sure game is stopped before any action outside of the game
     helper_method :current_user, :game_in_progress
 
     # Ensure that all pages cannot be accessed unless a session is created
@@ -21,9 +21,16 @@ class ApplicationController < ActionController::Base
             Bag.find(game.bag_id).store_all(Cup.find(game.player_cup_id).items).store_all(Cup.find(game.server_cup_id).items)
 
             # Removing game session
-            session[:game_id] = null
+            session[:game_id] = nil
         end
         session[:game_in_progress] = false
+    end
+
+    protected
+    def set_cache_buster
+        response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "#{1.year.ago}"
     end
 
 end
