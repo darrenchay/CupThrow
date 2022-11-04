@@ -14,14 +14,6 @@ class Coin < Item
 		1
 	end
 
-	# def set(denom = 1, arg2 = nil)
-	# 	raise ArgumentError, "supplied denomination #{denom} is not one of { 0.1, 0.25, 0.05, 1, 2 }" \
-	# 	  unless valid_denomination(denom)
-	# 	@denomination = denom
-	# 	reset
-	# 	return self
-	# end
-
 	private
 
 	def valid_denomination(denom)

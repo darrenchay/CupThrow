@@ -1,6 +1,4 @@
-# require_relative "./classes.rb"
 class Game < ApplicationRecord
-    # attr_accessor :player, :server
     has_one :user, class_name: 'User', foreign_key: 'user_id'
     has_one :bag, class_name: 'RandomizerContainer', foreign_key: 'bag_id'
     has_one :player_cup, class_name: 'RandomizerContainer', foreign_key: 'player_cup_id'
@@ -19,9 +17,7 @@ class Game < ApplicationRecord
         pc.pop_item(s_item_chosen)
         pc.store(p_item_chosen)
         sc.store(s_item_chosen)
-        # @game.switch_cups
-        # sc = Cup.find(@game.server_cup_id).store(pcup_highest_item)
-        # pc = Cup.find(@game.player_cup_id).store(item)
+        
         logger.info pc.items
         logger.info sc.items
 
@@ -30,14 +26,6 @@ class Game < ApplicationRecord
         self.player_cup_id = self.server_cup_id
         self.server_cup_id = tmp
         self.save
-    end
-
-    def roll_player
-        Cup.find(self.player_cup_id).throw
-    end
-
-    def roll_server
-        Cup.find(self.server_cup_id).throw
     end
 
     # Add a random die or coin to the players bag

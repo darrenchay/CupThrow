@@ -4,7 +4,6 @@ class Cup < Container
 		self.items.each do |item|
 			item.randomize
 			item.save
-			logger.info "Throwed item:#{item.to_string} and result: #{item.result}"
 		end
 
 		# all items are removed and stored in a Throw object, and returned

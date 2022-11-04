@@ -1,9 +1,6 @@
 class Results
-	# returns the items in the Results as a Hand
-	def return()					
-		# hand = @original_hand
-		# @original_hand = nil
-		# hand
+	# returns the items in the Results as a cup
+	def return()
 		@cup
 	end
 
@@ -71,9 +68,6 @@ class Results
 		@description = nil
 		@items = cup.items
 		@cup = cup
-		# hand = cup.empty               # get items from cup
-		# store_hand hand.duplicate      # store a duplicate of the items
-		# cup.load hand                  # place items back into cup
 	end
 
 	private

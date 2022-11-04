@@ -22,12 +22,11 @@
               <strong>Bag Contents:</strong>
             </p>
               <table>
-              <%# @user.bag.items.each do |itm| %>
-              <% Bag.find(@user.bag).items.each do |itm| %>
-                <tr>
-                  <td>- <%=itm.to_string%></td>
-                </tr>
-              <%end%>
+                <% Bag.find(@user.bag).items.each do |itm| %>
+                  <tr>
+                    <td>- <%=itm.to_string%></td>
+                  </tr>
+                <%end%>
               </table>
             <div class="user_actions">
               <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-secondary' %>
