@@ -5,6 +5,7 @@ class CreateGameData < ActiveRecord::Migration[6.1]
       t.string :colour
       t.integer :sides
       t.float :denomination
+      t.integer :result
       t.belongs_to :container, index: true
       t.timestamps      
     end

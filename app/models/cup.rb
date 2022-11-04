@@ -1,8 +1,11 @@
 class Cup < Container
 	# each item in the cup is rolled or flipped,
 	def throw				
-		@items.each do |item|
+		self.items.each do |item|
 			item.randomize
+			item.save
+			logger.info item.to_string
+			logger.info item.result
 		end
 
 		# all items are removed and stored in a Throw object, and returned

@@ -6,9 +6,7 @@ class Coin < Item
 	end
 
 	def randomize				# flips the coin and returns the number of flips performed (not the result)
-		@result = [:H, :T].sample
-		#  @result = [:H, :T].rand(0..1)
-		@calls += 1
+		self.result = rand(0..1)
 		self
 	end
 
@@ -16,16 +14,8 @@ class Coin < Item
 		self.randomize
 	end
 
-	def sideup				# returns :H or :T (the result of the last flip) or nil (if no flips yet done) 
-		@result
-	end 
-
 	def max
 		1
-	end
-
-	def up
-		(@result == :H) ? 1 : 0
 	end
 
 	# def set(denom = 1, arg2 = nil)

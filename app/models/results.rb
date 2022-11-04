@@ -1,9 +1,10 @@
 class Results
 	# returns the items in the Results as a Hand
 	def return()					
-		hand = @original_hand
-		@original_hand = nil
-		hand
+		# hand = @original_hand
+		# @original_hand = nil
+		# hand
+		@cup
 	end
 
 	def description(descr)
@@ -12,7 +13,7 @@ class Results
 		self
 	end		
 
-	# counts the items in the Results that match the descriptionand returns the value
+	# counts the items in the Results that match the description and returns the value
 	def tally()		
 		total = 0
 
@@ -33,17 +34,17 @@ class Results
 	# totals the value of the randomizer items in the Results that match the description, 
 	# where the value equals the number that is “up” (for coins, :H = 1 and :T = 0),
 	# and returns the value
-		def sum()		
+	def sum()		
 		total = 0
 
 		# selects items from Bag based on the description
 		if @description.nil?
-			@items.each do |item|
-				total += item.up
+			@cup.items.each do |item|
+				total += item.result
 			end
 		else
-			@items.each do |item|
-				total += item.up if @description.all_match(item)
+			@cup.items.each do |item|
+				total += item.result if @description.all_match(item)
 			end
 		end
 
@@ -55,11 +56,11 @@ class Results
 		ans = []				
 		if @description.nil?
 			@items.each do |item|
-				ans << item.up
+				ans << item.result
 			end
 		else
 			@items.each do |item|
-				ans << item.up if @description.all_match(item)
+				ans << item.result if @description.all_match(item)
 			end
 		end
 
@@ -68,10 +69,12 @@ class Results
 	
 	def initialize(cup)
 		@description = nil
-		@items = []
-		hand = cup.empty               # get items from cup
-		store_hand hand.duplicate      # store a duplicate of the items
-		cup.load hand                  # place items back into cup
+		@items = cup.items
+		@cup = cup
+		# hand = cup.empty               # get items from cup
+		# store_hand hand.duplicate      # store a duplicate of the items
+		# cup.load hand                  # place items back into cup
+		puts "CREATED RESULT==========="
 	end
 
 	private

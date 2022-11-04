@@ -2,6 +2,7 @@ class GamesController < ApplicationController
   skip_before_action :stop_game
   before_action :set_cache_buster, only: [:create, :switch, :roll, :results]
   attr_reader :info
+  after_action :switch_cups, only: [:switch]
 
   # Called when we want to start a new game
   def new
@@ -57,25 +58,29 @@ class GamesController < ApplicationController
 
   def results
     @game = Game.find(session[:game_id])
+
+    @user = current_user
+    @player_results = @game.roll_player
+    @server_results = @game.roll_server
+
     @player_cup_items = Cup.find(@game.player_cup_id).items
     @server_cup_items = Cup.find(@game.server_cup_id).items
-    @user = current_user
-    @player_score = 10
-    @server_score = 7
-    # Put all of contents back in bag
-    bag = Bag.find(@game.bag_id).store_all(@player_cup_items).store_all(@server_cup_items)
+  
+    
     # If won, add to cumlative score
-    if @player_score > @server_score
+    if @player_results.sum > @server_results.sum
       @user.points += (@player_score - @server_score)
       logger.info "saving user=========="
       logger.info @user
       logger.info @user.update(points: @user.points)
       logger.info @user.points
-      add_random_to_bag(bag)
+      @game.add_random_to_bag
       @info = "You won! Press the start game to start a new match"
     else 
       @info = "You lost... Press the start game to start a new match"
     end
+    # Put all of contents back in bag
+    bag = Bag.find(@game.bag_id).store_all(@player_cup_items).store_all(@server_cup_items)
     stop_game
   end
 
@@ -88,13 +93,7 @@ class GamesController < ApplicationController
     items
   end
 
-  # Add a random die or coin to the players bag
-  def add_random_to_bag(bag)
-    if rand(2) == 1
-      bag.store(Coin.create(denomination: [0.05, 0.1, 0.25, 1, 2].sample))
-    else
-      bag.store(Die.create(sides: rand(20), colour: ["white", "red", "green", "blue", "yellow", "black"].sample))
-    end
-    bag
+  def switch_cups
+    logger.info "Switched cups"
   end
 end

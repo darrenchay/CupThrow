@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2022_11_03_041444) do
     t.string "colour"
     t.integer "sides"
     t.float "denomination"
+    t.integer "result"
     t.integer "container_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

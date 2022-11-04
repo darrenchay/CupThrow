@@ -7,8 +7,7 @@ class Die < Item
 	end
 
 	def randomize				# flips the coin and returns the number of flips performed (not the result)
-		@result = rand 1..self.sides
-		@calls += 1
+		self.result = rand(1..self.sides)
 		self
 	end
 
@@ -16,16 +15,8 @@ class Die < Item
 		self.randomize
 	end
 
-	def sideup()
-		@result
-	end 
-
 	def max
 		self.sides
-	end
-
-	def up
-		@result
 	end
 
 	# def set(side_count = 6, colour = :white)
