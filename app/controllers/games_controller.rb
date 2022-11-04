@@ -125,9 +125,10 @@ class GamesController < ApplicationController
       # logger.info "====================PLAYER HAS #{prolled_item}: #{prolled_item.result} AND SERVER #{srolled_item}: #{srolled_item.result}"
       if prolled_item.result <= srolled_item.result
         # Put the items the player and server have chosen into their cups after switching their cups
-        @game.switch_cups(item, pcup_highest_item)
+        @game.switch_cups(item, pcup_highest_item, true)
         params[:notice] = "Since the server rolled a #{srolled_item.result} and you rolled #{prolled_item.result}, your cups have been switched"
       else
+        @game.switch_cups(item, pcup_highest_item, false)
         params[:notice] = "Since the server rolled a #{srolled_item.result} and you rolled #{prolled_item.result}, your cups have not been switched"
       end
     elsif (!params["selected_item"]) && (request.referrer.include? "switch")

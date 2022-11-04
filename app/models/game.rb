@@ -4,23 +4,23 @@ class Game < ApplicationRecord
     end
 
     # Place the players item into the servers cup, and vice versa, and update ids 
-    def switch_cups(p_item_chosen, s_item_chosen)
+    def switch_cups(p_item_chosen, s_item_chosen, switched)
         sc = Cup.find(self.server_cup_id)
         pc = Cup.find(self.player_cup_id)
 
-        sc.pop_item(p_item_chosen)
-        pc.pop_item(s_item_chosen)
-        pc.store(p_item_chosen)
-        sc.store(s_item_chosen)
-        
-        logger.info pc.items
-        logger.info sc.items
-
-        # Switch cups
-        tmp = self.player_cup_id
-        self.player_cup_id = self.server_cup_id
-        self.server_cup_id = tmp
-        self.save
+        if switched 
+            # Switch cups
+            tmp = self.player_cup_id
+            self.player_cup_id = self.server_cup_id
+            self.server_cup_id = tmp
+            self.save
+        else
+            # If cups weren't switched, put items in the opposite cup that they chose from
+            sc.pop_item(p_item_chosen)
+            pc.pop_item(s_item_chosen)
+            pc.store(p_item_chosen)
+            sc.store(s_item_chosen)
+        end
     end
 
     # Add a random die or coin to the players bag
