@@ -11,7 +11,7 @@ class GamesController < ApplicationController
     session[:game_in_progress] = true
     
     # Setting values
-    bag = Bag.find(current_user.bag)
+    bag = current_user.bag
     player_cup = Cup.create(user_id: current_user.id)
     server_cup = Cup.create(user_id: current_user.id)
     @game = Game.create(user_id: current_user.id, bag_id: bag.id, player_cup_id: player_cup.id, server_cup_id: server_cup.id)
@@ -40,7 +40,7 @@ class GamesController < ApplicationController
     end
   end
   
-  # Server is attempting to switch page
+  # Server is attempting to switch page. Triggers switch_cup method after this action
   def switch
     @game = Game.find(session[:game_id])
     @info = "The server has less items than you, and its trying to switch cups.\
@@ -48,7 +48,6 @@ class GamesController < ApplicationController
              The server will also pick the largest item from your cup and do the same.\
              If you get a higher value than the server, you will be able to block the switch "
   end
-  # after switch here, pops out items, then rolls, and see if we need to switch or not
 
   def roll
     # If item selected to roll is true, flip cups
@@ -62,22 +61,27 @@ class GamesController < ApplicationController
     @game = Game.find(session[:game_id])
 
     @user = current_user
-    @player_results = @game.roll_player
-    @server_results = @game.roll_server
+    @player_cup = Cup.find(@game.player_cup_id)
+    @server_cup = Cup.find(@game.server_cup_id)
+    @player_results = @player_cup.throw
+    @server_results = @server_cup.throw
 
     @player_score = @player_results.sum
     @server_score = @server_results.sum
 
-    @player_cup_items = Cup.find(@game.player_cup_id).items
-    @server_cup_items = Cup.find(@game.server_cup_id).items
+    @player_cup_items = @player_cup.duplicate.items
+    @server_cup_items = @server_cup.duplicate.items
     
     # If won, add to cumlative score
     if @player_score > @server_score
       @user.points += (@player_score - @server_score)
-      logger.info "saving user=========="
-      logger.info @user
-      logger.info @user.update(points: @user.points)
-      logger.info @user.points
+
+      if !@user.update({points: @user.points})
+        @user.errors.each do |err|
+          logger.info err.full_message
+        end 
+      end
+      # logger.info "User has points: #{@user.points}"
       @game.add_random_to_bag
       @info = "You won! Press the start game to start a new match"
     else 
@@ -89,6 +93,7 @@ class GamesController < ApplicationController
   end
 
   private 
+
   def get_items_from_map(items_ids)
     items = []
     items_ids.each do |id|
@@ -97,6 +102,7 @@ class GamesController < ApplicationController
     items
   end
 
+  # Player attempts to block
   def switch_cups
     logger.info params
     if params["selected_item"]

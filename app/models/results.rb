@@ -74,7 +74,6 @@ class Results
 		# hand = cup.empty               # get items from cup
 		# store_hand hand.duplicate      # store a duplicate of the items
 		# cup.load hand                  # place items back into cup
-		puts "CREATED RESULT==========="
 	end
 
 	private

@@ -23,6 +23,7 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
+    @user.enforce_password_validation
     respond_to do |format|
       if @user.valid? && @user.save
         session[:user_id] = @user.id
@@ -52,8 +53,9 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    Bag.destroy(@user.bag)
+    # bag_id = @user.bag
     @user.destroy
+    # Bag.destroy(bag_id)
     reset_session()
     # redirect_to action: "sessions#destroy" and return #,  notice: "User was successfully destroyed."
     respond_to do |format|
@@ -66,12 +68,6 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find_by_id(session[:user_id]) #Always use the session user
-      # logger.info @user.id
-      # logger.info session[:user_id]
-      # if !@user || (@user && @user.id != session[:user_id]) #always get user in session
-      #   logger.info "mismatch ids"
-      #   @user = User.find(session[:user_id])
-      # end
     end
 
     # Only allow a list of trusted parameters through.

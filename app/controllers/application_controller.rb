@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-    before_action :require_login, :stop_game, :set_cache_buster #make sure game is stopped before any action outside of the game
+    before_action :require_login, :stop_game, :set_cache_buster
     helper_method :current_user, :game_in_progress
 
     # Ensure that all pages cannot be accessed unless a session is created

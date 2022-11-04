@@ -23,7 +23,7 @@
             </p>
               <%# Make prettier %>
               <table>
-              <% Bag.find(@user.bag).items.each do |itm| %>
+              <% @user.bag.items.each do |itm| %>
                 <tr>
                   <td>- <%=itm.to_string%></td>
                 </tr>
