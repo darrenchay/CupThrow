@@ -80,7 +80,12 @@ caption {
 #notice {
         color: green;
 }
-
+#error {
+        color: rgb(230, 101, 101);
+}
+#info {
+        color: #dfc070;
+}
 .field_with_errors {
         padding: 2px;
         background-color: red;

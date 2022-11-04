@@ -1,6 +1,9 @@
 class SessionsController < ApplicationController
   skip_before_action :require_login, only: [:new, :create]
   def new
+    if session[:user_id]
+      redirect_to User.find(session[:user_id])
+    end
   end
 
   # Creates a new session with the user that just logged in
